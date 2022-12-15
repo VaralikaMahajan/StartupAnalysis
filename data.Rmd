@@ -1,8 +1,19 @@
 # Data 
 
 ## Sources
+```{r Reading the file}
+uni <- read_csv("Unicorn_Companies.csv")
+ab <- read_csv("AB.csv")
+```
 
 ## Cleaning / transformation
+```{r}
+uni <- subset(uni, select = -c("Deal Terms","Portfolio Exits"))
+View(uni)
+
+ab.HeadquartersCity[is.na(ab.HeadquartersCity)] <- "Other"
+View(ab)
+```
 
 ## Missing value analysis
 

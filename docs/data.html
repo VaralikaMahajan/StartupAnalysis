@@ -110,9 +110,46 @@
 <h1><span class="header-section-number">Chapter 3</span> Data<a href="data.html#data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="sources" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Sources<a href="data.html#sources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p> 
+Dataset description - 
+The startup dataset is a combination of two datasets: the Unicorn startup dataset and the failed startup dataset. 
+The Unicorn dataset provides information about the valuation, the founding year, country, city, industry, the investors, the total amount raised, the financial stage, investors count, the deal terms, and portfolio exits. It has a total of 13 columns. The datatypes involved in this dataset are categorical and numerical, having a few missing values.
+<br> <br>
+The failed startup dataset provides information regarding the status, the amount raised in different funding rounds, categories, and headquarters city. It has a total of 6 columns. The datatypes involved in this dataset are categorical and numerical, having a few missing values.
+<br> <br>
+Datasets usually have three general properties:
+Dimensionality is the number of attributes the objects in a dataset have. The two start-up datasets have many features and thus can be considered high-dimensional datasets.
+<br>
+1. <b> Sparsity: </b> It happens when a significant portion of the variable's cells do not contain any actual data. This type can be an empty or Null value and includes missing values. In the two datasets, some columns have sparse data.
+<br>
+2. <b> Resolution: </b> The level of resolution affects the patterns in the data. A pattern may not be seen or taken as noise data if the resolution is too fine; if the resolution is too coarse, the pattern may disappear. The two datasets are relatively coarse and sparse; thus, the patterns are easily identifiable.
+
+</p>
 </div>
 <div id="cleaning-transformation" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Cleaning / transformation<a href="data.html#cleaning-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>
+
+{{Graphs go here}}
+<br> <br>
+Observations:
+<br>
+1. HeadquartersCity is a column with more than 40% missing values.
+<br>
+2. Deal terms and Portfolio exits are irrelevant.
+<br>
+<br>
+
+
+Strategies used for missing value imputation:
+<br>
+We have cleaned the dataset in such a way that we find a close and appropriate result. <br>
+<br>
+1. HeadquartersCity with Null values has been filled with “Others” to treat them as a separate category.
+<br>
+2. We have removed data columns that were not relavent to our analysis, such as Deal terms and Portfolio exits.
+<br>
+</p>
 </div>
 <div id="missing-value-analysis" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Missing value analysis<a href="data.html#missing-value-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
