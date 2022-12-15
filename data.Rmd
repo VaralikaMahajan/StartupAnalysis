@@ -2,18 +2,39 @@
 
 ## Sources
 ```{r Reading the file}
-uni <- read_csv("Unicorn_Companies.csv")
-ab <- read_csv("AB.csv")
+uni <- read.csv("Unicorn_Companies.csv")
+ab <- read.csv("AB.csv")
 ```
 
 ## Cleaning / transformation
 ```{r}
-uni <- subset(uni, select = -c("Deal Terms","Portfolio Exits"))
+uni <- subset(uni, select = c("Deal.Terms","Portfolio.Exits"))
 View(uni)
 
-ab.HeadquartersCity[is.na(ab.HeadquartersCity)] <- "Other"
+ab$HeadquartersCity <- sub("^$", "Other", ab$HeadquartersCity)
 View(ab)
 ```
 
 ## Missing value analysis
+
+count(ab, HeadquartersCity)
+count(uni, Portfolio.Exits)
+count(uni, Financial.Stage)
+count(ab, Amounts_raised_in_different_funding_rounds)
+
+x_ab <- data.frame(Categories = c('Amount raised', 'Headquarters city'), Count = c(372, 208))
+x_uni <- data.frame(Categories = c('Portfolio Exits', 'Financial Stage'), Count = c(988, 988))
+
+
+ggplot(x_ab) +
+  aes(x = Categories, y = Count) +
+  geom_col(fill = "#112446") +
+  labs(title = "Missing Value Analysis(0 or N/A)") +
+  theme_minimal()
+  
+ggplot(x_uni) +
+  aes(x = Categories, y = Count) +
+  geom_col(fill = "#112446") +
+  labs(title = "Missing value analysis(0 or none)") +
+  theme_minimal()
 
