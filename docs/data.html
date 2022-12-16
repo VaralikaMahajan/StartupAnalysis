@@ -110,40 +110,46 @@
 <h1><span class="header-section-number">Chapter 3</span> Data<a href="data.html#data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="sources" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Sources<a href="data.html#sources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Dataset description -</p>
+<p><b>Dataset description - </b></p>
 <p>The startup dataset is a combination of two datasets: the Unicorn startup dataset and the failed startup dataset.
 The Unicorn dataset provides information about the valuation, the founding year, country, city, industry, the investors, the total amount raised, the financial stage, investors count, the deal terms, and portfolio exits. It has a total of 13 columns. The datatypes involved in this dataset are categorical and numerical, having a few missing values.</p>
 <p>The failed startup dataset provides information regarding the status, the amount raised in different funding rounds, categories, and headquarters city. It has a total of 6 columns. The datatypes involved in this dataset are categorical and numerical, having a few missing values.</p>
 <p>Datasets usually have three general properties:</p>
-<p>Dimensionality is the number of attributes the objects in a dataset have. The two start-up datasets have many features and thus can be considered high-dimensional datasets.</p>
-<p>Sparsity: It happens when a significant portion of the variable’s cells do not contain any actual data. This type can be an empty or Null value and includes missing values. In the two datasets, some columns have sparse data.</p>
-<p>Resolution: The level of resolution affects the patterns in the data. A pattern may not be seen or taken as noise data if the resolution is too fine; if the resolution is too coarse, the pattern may disappear. The two datasets are relatively coarse and sparse; thus, the patterns are easily identifiable.</p>
+<p><b>Dimensionality:</b>
+The number of attributes the objects in a dataset have. The two start-up datasets have many features and thus can be considered high-dimensional datasets.</p>
+<p><b>Sparsity:</b>
+It happens when a significant portion of the variable’s cells do not contain any actual data. This type can be an empty or Null value and includes missing values. In the two datasets, some columns have sparse data.</p>
+<p><b>Resolution:</b>
+The level of resolution affects the patterns in the data. A pattern may not be seen or taken as noise data if the resolution is too fine; if the resolution is too coarse, the pattern may disappear. The two datasets are relatively coarse and sparse; thus, the patterns are easily identifiable.</p>
 </div>
 <div id="cleaning-transformation" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Cleaning / transformation<a href="data.html#cleaning-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We conducted an exploratory data analysis to find out anomalies.
-Observations:
+<br>
+<b>Observations:</b>
 HeadquartersCity is a column with more than 40% missing values.
 Deal terms and Portfolio exits are irrelevant and do not impact our analysis.</p>
 <p>When you have clean data, you can make decisions using the highest-quality information and eventually boost productivity. Most data cleaning procedures adhere to a common framework: choose the important data points that are necessary for your study. Gather the information you want, then sort and arrange it. Find and eliminate any values that are redundant or unnecessary.</p>
 <p>Similar steps were taken by us:
 We determined which columns weren’t important for our study and then got to work removing them. Then, we looked for NULL or 0 values in the data. When we saw that the City Column had several missing values, we decided to replace null with the word “Others” because it was a pertinent column and couldn’t be replaced with anything else.
 Additionally, we made sure that all of the numerical columns were changed to numeric for analysis simplicity.</p>
-<p>Strategies used for missing value imputation:
+<p><b>Strategies used for missing value imputation:</b>
 We have cleaned the dataset in such a way that we find a close and appropriate result.
 HeadquartersCity with Null values has been filled with “Others” to treat them as a separate category.
 We have removed data columns that were not relavent to our analysis, such as Deal terms and Portfolio exits.</p>
 </div>
 <div id="missing-value-analysis" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Missing value analysis<a href="data.html#missing-value-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>After analyzing each column in both datasets, we carefully understand the reasons behind the missing values as it is crucial to find out the strategy for handling them.
-There are two primary ways of handling missing values:
-a. Deleting the missing rows
+<p>After analyzing each column in both datasets, we carefully understand the reasons behind the missing values as it is crucial to find out the strategy for handling them.</p>
+<p>There are two primary ways of handling missing values:
+<br>
+<b>a. Deleting the missing rows</b>
 This approach is used when the missing value is of the type Missing Not At Random(MNAR). It can be deleted if it belongs to this category.
 The datasets chosen do not have missing values at random and thus, we do not delete the individual rows. Also, since every row does not have many missing values, we do not delete the rows.
-b. Imputing the missing values
-If there is a possibility of making an educated guess, as to which category the missing values belong to, this value can be included in the columns having missing values. Thus, we choose this technique to include ‘Others’ as a value in the Headquarters city column of AB dataset which categorizes all other cities as other.
-The failed startup dataset has one column having more than 40% rows to be missing. These missing values pertain to the Headquarters city column. The dataset has been imputed with the string value ‘Others’ and treated as a separate category.</p>
+<br>
+<b>b. Imputing the missing values</b>
+If there is a possibility of making an educated guess, as to which category the missing values belong to, this value can be included in the columns having missing values. Thus, we choose this technique to include ‘Others’ as a value in the Headquarters city column of AB dataset which categorizes all other cities as other.</p>
+<p>The failed startup dataset has one column having more than 40% rows to be missing. These missing values pertain to the Headquarters city column. The dataset has been imputed with the string value ‘Others’ and treated as a separate category.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-6-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
 
 </div>
