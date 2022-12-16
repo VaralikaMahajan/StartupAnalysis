@@ -27,6 +27,9 @@ Steps followed:
 The graph shows how the unicorns and operating have continued to grow over time. However, the number of exited startups remains revolving around a point without significant drop or growth.
 <br>
 
+The graph demonstrates how operating and unicorn populations have increased throughout time. The number of shut down starts, however, continues to fluctuate about a fixed point with no appreciable increase or decrease.
+
+Up until 2010, unicorn populations grew moderately, but since then, they have expanded exponentially. A significant increase in the number of operational startups can be readily seen since 2010, which also marked an inflection point for the number of businesses that have exited. The apex denotes the startup industry's continued expansion and a declining anxiety among startup founders that their companies may fail due to minor setbacks.
 
 </p>
 

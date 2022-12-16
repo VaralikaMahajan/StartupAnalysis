@@ -29,6 +29,12 @@ Observations:
 HeadquartersCity is a column with more than 40% missing values.
 Deal terms and Portfolio exits are irrelevant and do not impact our analysis.
 
+When you have clean data, you can make decisions using the highest-quality information and eventually boost productivity. Most data cleaning procedures adhere to a common framework: choose the important data points that are necessary for your study. Gather the information you want, then sort and arrange it. Find and eliminate any values that are redundant or unnecessary.
+
+Similar steps were taken by us: 
+We determined which columns weren't important for our study and then got to work removing them. Then, we looked for NULL or 0 values in the data. When we saw that the City Column had several missing values, we decided to replace null with the word "Others" because it was a pertinent column and couldn't be replaced with anything else.
+Additionally, we made sure that all of the numerical columns were changed to numeric for analysis simplicity.
+
 
 Strategies used for missing value imputation:
 We have cleaned the dataset in such a way that we find a close and appropriate result. 
