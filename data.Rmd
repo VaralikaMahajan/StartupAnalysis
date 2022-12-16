@@ -1,26 +1,59 @@
 # Data 
 
 ## Sources
-```{r Reading the file}
+
+Dataset description - 
+
+The startup dataset is a combination of two datasets: the Unicorn startup dataset and the failed startup dataset. 
+The Unicorn dataset provides information about the valuation, the founding year, country, city, industry, the investors, the total amount raised, the financial stage, investors count, the deal terms, and portfolio exits. It has a total of 13 columns. The datatypes involved in this dataset are categorical and numerical, having a few missing values.
+
+The failed startup dataset provides information regarding the status, the amount raised in different funding rounds, categories, and headquarters city. It has a total of 6 columns. The datatypes involved in this dataset are categorical and numerical, having a few missing values.
+
+Datasets usually have three general properties:
+
+Dimensionality is the number of attributes the objects in a dataset have. The two start-up datasets have many features and thus can be considered high-dimensional datasets.
+
+Sparsity: It happens when a significant portion of the variable's cells do not contain any actual data. This type can be an empty or Null value and includes missing values. In the two datasets, some columns have sparse data.
+
+Resolution: The level of resolution affects the patterns in the data. A pattern may not be seen or taken as noise data if the resolution is too fine; if the resolution is too coarse, the pattern may disappear. The two datasets are relatively coarse and sparse; thus, the patterns are easily identifiable.
+
+```{r, warning = FALSE, results = 'hide', message = FALSE}
 uni <- read.csv("Unicorn_Companies.csv")
 ab <- read.csv("AB.csv")
 ```
 
 ## Cleaning / transformation
-```{r}
+
+We conducted an exploratory data analysis to find out anomalies.
+Observations:
+HeadquartersCity is a column with more than 40% missing values.
+Deal terms and Portfolio exits are irrelevant and do not impact our analysis.
+
+
+Strategies used for missing value imputation:
+We have cleaned the dataset in such a way that we find a close and appropriate result. 
+HeadquartersCity with Null values has been filled with “Others” to treat them as a separate category.
+We have removed data columns that were not relavent to our analysis, such as Deal terms and Portfolio exits.
+
+
+```{r, warning = FALSE, results = 'hide', message = FALSE}
 uni <- subset(uni, select = c("Deal.Terms","Portfolio.Exits"))
-View(uni)
 
 ab$HeadquartersCity <- sub("^$", "Other", ab$HeadquartersCity)
-View(ab)
 ```
 
 ## Missing value analysis
+After analyzing each column in both datasets, we carefully understand the reasons behind the missing values as it is crucial to find out the strategy for handling them.
+There are two primary ways of handling missing values:
+a. Deleting the missing rows
+This approach is used when the missing value is of the type Missing Not At Random(MNAR). It can be deleted if it belongs to this category. 
+The datasets chosen do not have missing values at random and thus, we do not delete the individual rows. Also, since every row does not have many missing values, we do not delete the rows.
+b. Imputing the missing values
+If there is a possibility of making an educated guess, as to which category the missing values belong to, this value can be included in the columns having missing values. Thus, we choose this technique to include ‘Others’ as a value in the Headquarters city column of AB dataset which categorizes all other cities as other.
+The failed startup dataset has one column having more than 40% rows to be missing. These missing values pertain to the Headquarters city column. The dataset has been imputed with the string value ‘Others’ and treated as a separate category.
 
-count(ab, HeadquartersCity)
-count(uni, Portfolio.Exits)
-count(uni, Financial.Stage)
-count(ab, Amounts_raised_in_different_funding_rounds)
+
+```{r, warning = FALSE, results = 'hide', message = FALSE}
 
 x_ab <- data.frame(Categories = c('Amount raised', 'Headquarters city'), Count = c(372, 208))
 x_uni <- data.frame(Categories = c('Portfolio Exits', 'Financial Stage'), Count = c(988, 988))
@@ -37,4 +70,4 @@ ggplot(x_uni) +
   geom_col(fill = "#112446") +
   labs(title = "Missing value analysis(0 or none)") +
   theme_minimal()
-
+```

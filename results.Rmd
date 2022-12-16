@@ -1,1 +1,290 @@
 # Results
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+
+# install.packages("ggrepel")
+library(tidyverse)
+library(lubridate)
+library(ggrepel)
+library(ggplot2)
+#library(maps)
+theme_set(theme_light())
+```
+
+Loading the file
+```{r, echo=FALSE, warning=FALSE}
+
+uni <- read.csv("Unicorn_Companies.csv")
+ab <- read.csv("AB.csv")
+uni <- uni %>% rename(Valuation = 'Valuation...B.')
+
+```
+
+
+Plots
+
+```{r, echo=FALSE, warning=FALSE}
+
+# Charts/graphs ---------------------------------------------------------
+
+
+#1. Top 10 company by valuation ---------------------------------------------
+
+# options(ggrepel.max.overlaps = Inf)
+uni %>% 
+  mutate(Company=fct_reorder(Company,`Valuation`)) %>% 
+  head(10) %>% 
+  ggplot(aes(y=`Valuation`,x=`Founded.Year`))+
+  geom_point(aes(color=Company))+
+  geom_text_repel(aes(label=Company))+
+  labs(title="1. Valuation of top 10 Unicorns by the founding year")+
+  theme(legend.position = "none")
+```
+
+<b>Graph 1: Valuation of top 10 unicorns by founding year<br>
+<br>
+<b>Inference from the above scatterplot<b>
+
+a. Companies like SpaceX, Stripe, and ByteDance have become successful with a valuation of above $90B.
+b. We infer that companies with seeding and initial funding have the edge over startups without funding, hence the valuation difference. 
+c. In 2012, there was a peak in the number of unicorn startups(4).
+
+
+```{r, echo=FALSE, warning=FALSE}
+# 2. Which Unicorn investor are the most successful ----------------------------------------------------------------------
+
+
+uni_new <- uni %>% 
+  mutate(`Date.Joined`=mdy(`Date.Joined`),
+         `Valuation`=parse_number(`Valuation`),
+         `Total.Raised`=parse_number(`Total.Raised`),
+         `Founded.Year`=`Founded.Year`,
+          `Investors.Count`=parse_number(`Investors.Count`),
+         `Deal.Terms`=parse_number(`Deal.Terms`),
+         `Portfolio.Exits`=parse_number(`Portfolio.Exits`),
+         Country=as.factor(Country),
+         Industry=as.factor(Industry),
+         `Financial.Stage`=as.factor(`Financial.Stage`))
+
+uni_new %>% 
+  separate_rows(`Select.Inverstors`,sep = ",") %>% 
+  mutate(`Select.Inverstors`= str_trim(`Select.Inverstors`)) %>% 
+  group_by(`Select.Inverstors`) %>% 
+  summarise(avg_valuation=mean(`Valuation`),
+            count=n()) %>% 
+  arrange(desc(count)) %>% 
+  head(10) %>% 
+  mutate(`Select.Inverstors`=fct_reorder(`Select.Inverstors`,avg_valuation)) %>% 
+  ggplot(aes(y=`Select.Inverstors`,x=avg_valuation,size=count))+
+  geom_point(aes(color=`Select.Inverstors`))+
+  labs(title="2. Top 10 most successful Unicorn investors",
+       subtitle="Size represents number of startups funded",
+       size="Count of startups")+
+  guides(color="none")
+```
+
+Top 10 most successful unicorn investors
+
+Inference from the above bubble plot:
+
+a. We see that Sequoia Capital China has invested in a significant number of startups which are valued above $7B, whereas other Unicorn investors have invested in growing startups, with valuation below $6B.
+b. Accel has invested in most number of startups, whereas investors like Insight Partners and Tiger Global Management have invested in lesser number of startups.
+
+
+```{r, echo=FALSE, warning=FALSE}
+
+# 3. Which industry has maximum number of high value unicorns----------------------------------------------------------------------
+
+uni_new %>% 
+  separate_rows(Industry,sep = ",") %>% 
+  group_by(Industry) %>% 
+  summarise(avg_valuation=mean(`Valuation`),count=n()) %>% 
+  filter(Industry!="Other") %>% 
+  arrange(desc(count)) %>% 
+  mutate(Industry=fct_reorder(Industry,avg_valuation)) %>% 
+  head(10) %>% 
+  ggplot(aes(y=Industry,x=avg_valuation))+
+  geom_col(aes(fill=Industry))+
+  geom_label(aes(label=count),hjust=1,vjust=1)+
+  labs(title="3. Which industry are the most valuated unicorns in",
+       x="Valuation ($B)")+
+  theme(legend.position = "none")
+```
+
+Industry having most valuated unicorns
+
+Inference from the above plot:
+
+a. Internet software & services and Fintech are the major industries having significant and higher valuation whereas data management and analytics is the industry having least valuation.
+b. This suggests that the number of investors for startups are higher in Internet software & services and Fintech industries.
+c. Artificial Intelligence domain has the most valuation over $4B despite the fact that it has comparatively less number of investors.
+
+
+```{r, echo=FALSE, warning=FALSE}
+
+# 4. Which country have the maximum Unicorns ----------------------------------------------------------------------
+
+uni %>% 
+  group_by(Country) %>% 
+  summarise(count=n()) %>% 
+  mutate(Country=fct_reorder(Country,-count)) %>% 
+  arrange(desc(count)) %>% 
+  head(10) %>% 
+  ggplot(aes(y=count,x=Country))+
+  geom_col()+
+  geom_label(aes(label=count),hjust=0,vjust=1)+
+  labs(title="4. Top 10 Countries with number of Unicorns",
+       y="Number of Unicorns")
+```
+
+Total raised with respect to total valuation in financial stage
+
+Inference from the above scatterplot:
+
+a. As we can see in the figure, startups like UBTech Robotics, Blockchain and Meizu technology have significant amount raised.
+b. This indicates that corporate and IPO acquired sectors have more funding and are seen as emerging sources of economic growth.
+c. Fields like blockchain and stocks having higher scope of growth and have significant number of investors.
+
+
+```{r, echo=FALSE, warning=FALSE}
+# 6.  Total raised vs. Total valuation---------------------------------------------------------------------
+
+uni_new %>% 
+  filter(`Financial.Stage`!="None") %>% 
+  ggplot(aes(x=`Total.Raised`,y=`Valuation`))+
+  geom_point(aes(color=`Financial.Stage`))+
+  geom_text_repel(aes(label=Company),hjust=1,vjust=1,size=2.1)+
+  labs(title="6. Total Raised vs. Valuation (wrt Financial stage)",
+       x="Total Amount raised ($B)")
+
+```
+Founding year with unicorn valuation and count 
+
+Inference from the above bubble-plot:
+
+a. The number of venture capital funds keeps rising for a given unicorn from the founded year.
+b. This surge can be explained by the fact that there is abundance of liquidity for startups, as they prefer to move from private to public markets.
+c. Various startups founded in 2020 in growing domains such as blockchain and stock markets, are valued below $10B.
+
+
+```{r, echo=FALSE, warning=FALSE}
+# 7. Does investor network (Location) play an important effect in determining valuation --------
+
+uni_new %>% 
+  group_by(Country) %>% 
+  summarise(avg_valuation=mean(`Valuation`,na.rm=TRUE),
+            avg_inv_count=mean(`Investors.Count`,na.rm=TRUE),
+            count=n()) %>% 
+  filter(count>10) %>% 
+  ggplot(aes(x=avg_inv_count,y=avg_valuation))+
+  geom_point(aes(color=as.factor(Country),size=avg_inv_count))+
+  geom_label(aes(label=Country),hjust=1,vjust=1)+
+  labs(title="7. Unicorn location vs. number of investors & valuation. ",
+       y="Average valuation ($B)",
+       x="Number of investors",
+       size="Unicorns count")+
+  guides(color="none") +
+  facet_grid(vars('Number of investors', 'Average valuation'))
+```
+
+Unicorn location with number of investors and valuation
+
+Inference from the above bubble-plot:
+
+a. We see from the above plot that UK has highest average valuation for a given number of unicorns. This can be attributed to various reasons such as ease of doing business, manageable taxation system, Innovator visas and access to funding.
+b. China and United States have significant number of unicorns with valuations above $3B, indicating expansion of consumer markets and affordable labor costs.
+c. Some countries like India, Canada and Germany have just entered the market and have started to establish stable unicorn startups.
+
+```{r, echo=FALSE, warning=FALSE}
+
+# 8. Top 10 Categories with maximum Failed Startups ----------------------------------------------------------------------
+
+ab %>% 
+  group_by(Categories) %>% 
+  summarise(Satus = "Dead",count=n()) %>% 
+  mutate(Categories=fct_reorder(Categories,-count)) %>% 
+  arrange(desc(count)) %>% 
+  head(10) %>% 
+  ggplot(aes(y=count,x=Categories))+
+  geom_col()+
+  geom_label(aes(label=count),hjust=0,vjust=1)+
+  labs(title="8. Top 10 Categories with maximum Failed Startups",
+       y="Number of Startups")
+
+```
+Top 10 Categories with maximum failed startups
+
+Inference from the above barplot:
+
+a. Technology sector has the the most innovations in building a startup culture, which leads to major successes and failures as indicated in the plot.
+b. Market necessity, impactful business model and passionate teams play a major role in building startup ventures.
+c. Medical and education sectors have least failed startups indicating that the innovation and improvement in strategies are helping in building advanced technologies to cure diseases and strategically extending education opportunities to inaccessible and remote areas.
+
+
+```{r, echo=FALSE, warning=FALSE}
+# 9. Where were these Failed Startups based out off? ----------------------------------------------------------------------
+
+
+df <- subset(ab_new, ab_new$Satus == "Dead")
+
+# Count the number of startups for each headquarters city
+counts <- count(df, HeadquartersCity)
+
+# Create a pie chart using ggplot2
+ggplot(counts, aes(x = "", y = n, fill = HeadquartersCity)) +
+  geom_bar(width = 1, stat = "identity") +
+  coord_polar("y", start = 0) +
+  labs(title = "9. Percentage of Dead Startups by Headquarters City",
+       fill = "Headquarters City")
+```
+Percentage of Dead Startups by Headquarters City
+
+Inference from the above pie-chart:
+
+a. A high percentage of startups are from Rio De Janeiro, San Francisco, San Jose, Sunnyvale and Wilmington.
+b. Arlington Heights and Atlanta have the least share of dead startups indicating establishment of new startups or no startups.
+However, any major conclusions cannot be drawn from this interpretation as we miss the bigger picture, as to the count of startups in these cities.
+c. However the city distribution of the data cannot be an analyzed more than 40% of the data is classified as others.
+
+```{r, echo=FALSE, warning=FALSE}
+
+# 10. Funding amount vs Status of Startups? ----------------------------------------------------------------------
+
+ab %>% 
+  group_by(Satus) %>% 
+  summarise(count=n(),avg_funding=round(mean(`Amounts_raised_in_different_funding_rounds`),2)) %>% 
+  mutate(Satus=fct_reorder(Satus,-count)) %>% 
+  arrange(desc(count)) %>% 
+  head(10) %>% 
+  ggplot(aes(y=avg_funding,x=Satus))+
+  geom_col()+
+  geom_label(aes(label=avg_funding),hjust=0,vjust=1)+
+  labs(title="10. Amount Raised in Different Funding Rounds", x="Status of Startup",
+       y="Average Funding Amount")
+```
+Amount raised in different funding rounds
+
+Inference from the above barplot:
+
+a. Funding round amounts and stages vary widely depending on the company's size, previous funding rounds and the company's value.
+b. Currently operating startups have pre-seed, seed, angel and series funding which helps in evaluation of strategies and improvising feedbacks.
+c. Exited and dead startups have lesser average funding amount, due to stagnated idea progression and incompetitive market evaluation.
+
+
+```{r, echo=FALSE, warning=FALSE}
+# 11. Plotting Categories wrt to Status for Startups
+ggplot(ab, 
+       aes(x = Categories, 
+           fill = Satus)) + geom_bar(position = "stack")+theme(axis.title.x = element_text(size = rel(0.2)),
+          axis.title.y = element_text(size = rel(0.2)))+labs(title="11.Plotting Categories wrt to Status for Startups")
+```
+Categories with status of startups
+
+Inference from the stacked barplot:
+
+a. We see from the plot that the medical field has startups which are operating and are open to innovation and growth, and henceforth there are no dead or exited startups.
+b. In 90% of the domains, the number of operating startups are higher compared to the dead or exited startups.
+
+

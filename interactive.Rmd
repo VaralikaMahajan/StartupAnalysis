@@ -1,3 +1,32 @@
 # Interactive component
 
+<p>
+<br>
+  Here is the link to the interactive plot created:
+  <br>
+  <a href="https://vizhub.com/Varalika13/1ba15ec352784669b06d2fbe918e4b6d"> Interactive Line Chart of Unicorn, Operating and Exited Startups over years</a>
+<br> <br>
+The interactive line chart created using a multi series data of the number of unicorn, operating and exited startup over years from 2005 to 2015.
+<br> <br>
+Steps followed:
+<br>
+1. Data Preparation
+<br>
+2. Scales Preparation
+<br>
+3. Adding Axes
+<br>
+4. Line Chart
+<br>
+5. Event Triggers
+<br>
+6. Circles and Labels
+<br>
+
+<br>
+The graph shows how the unicorns and operating have continued to grow over time. However, the number of exited startups remains revolving around a point without significant drop or growth.
+<br>
+
+
+</p>
 

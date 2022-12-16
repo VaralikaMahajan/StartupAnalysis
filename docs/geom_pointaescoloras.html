@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 13 geom_point(aes(color=as.factor(year)))+ | Startup Analysis</title>
+  <meta name="description" content="Chapter 13 geom_point(aes(color=as.factor(year)))+ | Startup Analysis" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 13 geom_point(aes(color=as.factor(year)))+ | Startup Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 13 geom_point(aes(color=as.factor(year)))+ | Startup Analysis" />
+  
+  
+  
+
+<meta name="author" content="Varalika Mahajan and Vrinda Bhat" />
+
+
+<meta name="date" content="2022-12-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ggplotaesxyearyavg_valuationsizecount.html"/>
+<link rel="next" href="labstitle5.-founding-year-vs.-unicorn-valuation-unicorn-count.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Startup Analysis</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="proposal.html"><a href="proposal.html"><i class="fa fa-check"></i><b>2</b> Proposal</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="proposal.html"><a href="proposal.html#research-topic"><i class="fa fa-check"></i><b>2.1</b> Research topic</a></li>
+<li class="chapter" data-level="2.2" data-path="proposal.html"><a href="proposal.html#data-availability"><i class="fa fa-check"></i><b>2.2</b> Data availability</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>3</b> Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data.html"><a href="data.html#sources"><i class="fa fa-check"></i><b>3.1</b> Sources</a></li>
+<li class="chapter" data-level="3.2" data-path="data.html"><a href="data.html#cleaning-transformation"><i class="fa fa-check"></i><b>3.2</b> Cleaning / transformation</a></li>
+<li class="chapter" data-level="3.3" data-path="data.html"><a href="data.html#missing-value-analysis"><i class="fa fa-check"></i><b>3.3</b> Missing value analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a></li>
+<li class="chapter" data-level="5" data-path="did-the-founding-year-have-an-impact-on-valuation--.html"><a href="did-the-founding-year-have-an-impact-on-valuation--.html"><i class="fa fa-check"></i><b>5</b> 5. Did the founding year have an impact on valuation ———————————————————————-</a></li>
+<li class="chapter" data-level="6" data-path="uni.html"><a href="uni.html"><i class="fa fa-check"></i><b>6</b> uni %&gt;%</a></li>
+<li class="chapter" data-level="7" data-path="selectdate.joined-valuation.html"><a href="selectdate.joined-valuation.html"><i class="fa fa-check"></i><b>7</b> select(Date.Joined, Valuation) %&gt;%</a></li>
+<li class="chapter" data-level="8" data-path="mutateyearyeardate.html"><a href="mutateyearyeardate.html"><i class="fa fa-check"></i><b>8</b> mutate(year=year(Date.Joined)) %&gt;%</a></li>
+<li class="chapter" data-level="9" data-path="group_byyear.html"><a href="group_byyear.html"><i class="fa fa-check"></i><b>9</b> group_by(year) %&gt;%</a></li>
+<li class="chapter" data-level="10" data-path="summarisecountn.html"><a href="summarisecountn.html"><i class="fa fa-check"></i><b>10</b> summarise(count=n(),</a></li>
+<li class="chapter" data-level="11" data-path="avg_valuationmeanvaluation.html"><a href="avg_valuationmeanvaluation.html"><i class="fa fa-check"></i><b>11</b> avg_valuation=mean(<code>Valuation</code>)) %&gt;%</a></li>
+<li class="chapter" data-level="12" data-path="ggplotaesxyearyavg_valuationsizecount.html"><a href="ggplotaesxyearyavg_valuationsizecount.html"><i class="fa fa-check"></i><b>12</b> ggplot(aes(x=year,y=avg_valuation,size=count))+</a></li>
+<li class="chapter" data-level="13" data-path="geom_pointaescoloras.html"><a href="geom_pointaescoloras.html"><i class="fa fa-check"></i><b>13</b> geom_point(aes(color=as.factor(year)))+</a></li>
+<li class="chapter" data-level="14" data-path="labstitle5.-founding-year-vs.-unicorn-valuation-unicorn-count.html"><a href="labstitle5.-founding-year-vs.-unicorn-valuation-unicorn-count.html"><i class="fa fa-check"></i><b>14</b> labs(title=“5. Founding year vs. Unicorn valuation &amp; Unicorn count”,</a></li>
+<li class="chapter" data-level="15" data-path="yaverage-valuation-b.html"><a href="yaverage-valuation-b.html"><i class="fa fa-check"></i><b>15</b> y=“Average valuation ($B)”,</a></li>
+<li class="chapter" data-level="16" data-path="xyear.html"><a href="xyear.html"><i class="fa fa-check"></i><b>16</b> x=“Year”,</a></li>
+<li class="chapter" data-level="17" data-path="sizeunicorns-count.html"><a href="sizeunicorns-count.html"><i class="fa fa-check"></i><b>17</b> size=“Unicorns count”)+</a></li>
+<li class="chapter" data-level="18" data-path="guidescolornone.html"><a href="guidescolornone.html"><i class="fa fa-check"></i><b>18</b> guides(color=“none”)</a></li>
+<li class="chapter" data-level="19" data-path="amount-raised-in-different-funding-rounds-vs-status-of-startup.html"><a href="amount-raised-in-different-funding-rounds-vs-status-of-startup.html"><i class="fa fa-check"></i><b>19</b> 11 Amount Raised in Different Funding Rounds vs Status of Startup</a></li>
+<li class="chapter" data-level="20" data-path="dfamounts_raised_in_different_funding_rounds---scaledfamounts_raised_in_different_funding_rounds.html"><a href="dfamounts_raised_in_different_funding_rounds---scaledfamounts_raised_in_different_funding_rounds.html"><i class="fa fa-check"></i><b>20</b> df<span class="math inline">\(Amounts_raised_in_different_funding_rounds &lt;- scale(df\)</span>Amounts_raised_in_different_funding_rounds)</a></li>
+<li class="chapter" data-level="21" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>21</b> Interactive component</a></li>
+<li class="chapter" data-level="22" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>22</b> Conclusion</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Startup Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="geom_pointaescoloras.factoryear" class="section level1 hasAnchor" number="13">
+<h1><span class="header-section-number">Chapter 13</span> geom_point(aes(color=as.factor(year)))+<a href="geom_pointaescoloras.html#geom_pointaescoloras.factoryear" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ggplotaesxyearyavg_valuationsizecount.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="labstitle5.-founding-year-vs.-unicorn-valuation-unicorn-count.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/VaralikaMahajan/StartupAnalysis/edit/main/results.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/VaralikaMahajan/StartupAnalysis/blob/main/results.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
